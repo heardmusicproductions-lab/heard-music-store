@@ -109,13 +109,36 @@
     box.style.display = box.style.display === "block" ? "none" : "block";
   }
 
-  function checkout(){
-    if(cart.length === 0){
-      alert("Your basket is empty.");
-      return;
+async function checkout() {
+
+  const items = cart.map(item => ({
+    name: item.name,
+    price: item.price
+  }));
+
+  try {
+
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ items })
+    });
+
+    const data = await response.json();
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert("Stripe checkout failed.");
     }
-    alert("Next step: connect this basket to Stripe Checkout.");
+
+  } catch (error) {
+    console.error(error);
+    alert("Error connecting to Stripe.");
   }
+}
 
   renderCart();
 </script>
