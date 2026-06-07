@@ -1,20 +1,16 @@
-import Stripe from 'stripe';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
 export default async function handler(req, res) {
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
+  const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
   try {
+    const { items } = req.body;
 
-    const { cart } = req.body;
-
-    const line_items = cart.map(item => ({
+    const line_items = items.map(item => ({
       price_data: {
-        currency: 'gbp',
+        currency: "gbp",
         product_data: {
           name: item.name,
         },
@@ -24,23 +20,18 @@ export default async function handler(req, res) {
     }));
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ["card"],
       line_items,
-      mode: 'payment',
+      mode: "payment",
 
-      success_url: 'https://heardmusicycsyh.com/success',
-      cancel_url: 'https://heardmusicycsyh.com/cancel',
-
+      success_url: "https://heardmusicycsyh.com/success",
+      cancel_url: "https://heardmusicycsyh.com/cancel",
     });
 
-    res.status(200).json({ url: session.url });
+    res.status(200).json({ id: session.id });
 
-  } catch (error) {
-
-    res.status(500).json({
-      error: error.message,
-    });
-
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
   }
-
 }
