@@ -27,7 +27,7 @@ module.exports = async function handler(req, res) {
 success_url: "https://heard-music-store.vercel.app/success.html",
 cancel_url: "https://heard-music-store.vercel.app/cancel.html",
 
- res.status(200).json({ url: session.url });
+res.status(200).json({ url: session.url });
 
   } catch (err) {
     console.error(err);
