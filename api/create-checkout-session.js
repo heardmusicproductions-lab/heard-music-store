@@ -24,9 +24,8 @@ export default async function handler(req, res) {
       line_items,
       mode: "payment",
 
-      success_url: "https://heardmusicycsyh.com/success",
-      cancel_url: "https://heardmusicycsyh.com/cancel",
-    });
+success_url: "https://heard-music-store.vercel.app/success.html",
+cancel_url: "https://heard-music-store.vercel.app/cancel.html",
 
  res.status(200).json({ url: session.url });
 
