@@ -4,9 +4,7 @@ export default async function handler(req, res) {
   }
 
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const beatLinks = {
-  "A Stream Of Dreams - MP3 Lease": https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6b286GXy3DRZN6biQIdLjf8VBYtqrDFs7oKe9k,
-};
+
   try {
     const { items } = req.body;
 
