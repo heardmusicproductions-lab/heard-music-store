@@ -36,35 +36,7 @@ footer{text-align:center;padding:30px;color:#777}
   <p>Industry quality production for artists worldwide. UK Drill, Trap, Cinematic, Jersey Club and more.</p>
 </section>
 
-<section class="beats">
-
-  <div class="beat-card">
-    <h3>A Stream Of Dreams</h3>
-    <p>Emotional melodic trap beat.</p>
-    <div class="price">£45 MP3</div>
-<button onclick="addToCart(
-'A Stream Of Dreams',
-45,
-'MP3 Lease',
-'https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6b286GXy3DRZN6biQIdLjf8VBYtqrDFs7oKe9k'
-);">Add To Cart</button>
-  </div>
-
-  <div class="beat-card">
-    <h3>Rays Of Sunshine</h3>
-    <p>Dancehall / reggae inspired vibe.</p>
-    <div class="price">£65 WAV</div>
-    <button onclick="addToCart('Rays Of Sunshine',65,'WAV Lease','https://test.com/rays-of-sunshine-wav')">Add To Cart</button>
-  </div>
-
-  <div class="beat-card">
-    <h3>Shush</h3>
-    <p>Dark UK drill cinematic energy.</p>
-    <div class="price">£300 Trackout</div>
-    <button onclick="addToCart('Shush',300,'Trackout Lease','https://test.com/shush-trackout')">Add To Cart</button>
-  </div>
-
-</section>
+<section class="beats" id="beatsContainer"></section>
 
 <div id="cartBox">
   <h2>Your Basket</h2>
@@ -77,6 +49,47 @@ footer{text-align:center;padding:30px;color:#777}
 <footer>© Heard Music / YOU CAN SAY YOU HEARD</footer>
 
 <script>
+    const beats = [
+    title: "See The Light",
+    description: "Soulful melodic beat with emotional energy.",
+    image: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bXX5fN8AwD2iJ0GFCenIx6fyprHuqt7gRQzkL",
+    mp3: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bPP0aTTWFv6JTDGKbSlp3QuMVwechm7sR1oza",
+    wav: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6b7Kh2gS4h63BLTUJAimZySkPlM97XWzeoq2gb",
+    zip: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bg5GuXRsVleiPfkaH0NX7gOWDrQmcKoSLs8xt"
+  },
+  {
+    title: "Umoaw Riddim",
+    description: "Dancehall riddim with island energy.",
+    image: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6b8w3XMWlMIC9kDjPbTXd4Uxn5FgEWlRSrzOcV",
+    mp3: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bKO0RMM7Pd6FqYZtagVhGb15zi0DBxlEJk4Ue",
+    wav: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6beod8IXwgzClBjxeATLV7UiZ1H3XrP6qsNmnu",
+    zip: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6b08biOlLL8wgUzMitO6Xv3IEV1kYB2D94fanG"
+  },
+  {
+    title: "A Stream Of Dreams",
+    description: "Emotional melodic trap beat.",
+    image: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bpftCTmw8ohAJVUmbxz4ZMC8fkrQLWOtycKgP",
+    mp3: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6b286GXy3DRZN6biQIdLjf8VBYtqrDFs7oKe9k",
+    wav: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bzYqhcGHJsel4ITm9xb6a1VCYikRFfBpUohu2",
+    zip: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bOOvj6FKGD9jvFPrCLSHE57uc0t1UiQx6gBKX"
+  },
+  {
+    title: "Rays Of Sunshine",
+    description: "Dancehall reggae inspired vibe.",
+    image: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bxwsxbGUg5W4Q8DSwKcZk1zrJNnLiGbBuC7v3",
+    mp3: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bSaGvFw64auM0Um23v1HqlfYkLeiBE8WP57TJ",
+    wav: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bWRdVeZK2vYPkwMjmtEfz79LdAQ8lJahXR0Bg",
+    zip: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6ba7WDpfIOXMWLIsVFfHNJ9yYwAq2zDv0e8gUC"
+  },
+  {
+    title: "Vybz On Vybz",
+    description: "Afrobeats and dancehall type beat.",
+    image: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6b8CHnqplMIC9kDjPbTXd4Uxn5FgEWlRSrzOcV",
+    mp3: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bMLzwHSyKQCPZVz7EAT8J1Dsr34F0GRfvMSgm",
+    wav: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bHi45i8Qml6Ot4va70Nrj5GWIASbyzhgXeL9D",
+    zip: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bxuhYYBvGUg5W4Q8DSwKcZk1zrJNnLiGbBuC7"
+  }
+];
 let cart = JSON.parse(localStorage.getItem("heardCart")) || [];
 
 function saveCart(){
@@ -100,7 +113,29 @@ function removeFromCart(index){
   cart.splice(index, 1);
   saveCart();
 }
+function renderBeats() {
+  const container = document.getElementById("beatsContainer");
 
+  container.innerHTML = beats.map((beat, index) => `
+    <div class="beat-card">
+      <img src="${beat.image}" alt="${beat.title}" style="width:100%;border-radius:10px;margin-bottom:10px;">
+      <h3>${beat.title}</h3>
+      <p>${beat.description}</p>
+
+      <button onclick="addToCart(beats[${index}].title,45,'MP3 Lease',beats[${index}].mp3)">
+        MP3 - £45
+      </button>
+
+      <button onclick="addToCart(beats[${index}].title,65,'WAV Lease',beats[${index}].wav)">
+        WAV - £65
+      </button>
+
+      <button onclick="addToCart(beats[${index}].title,300,'Trackout Lease',beats[${index}].zip)">
+        Trackout - £300
+      </button>
+    </div>
+  `).join("");
+}
 function renderCart(){
   document.getElementById("cartCount").innerText = cart.length;
 
@@ -156,6 +191,7 @@ async function checkout(){
   }
 }
 
+renderBeats();
 renderCart();
 </script>
 
