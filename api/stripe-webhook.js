@@ -175,11 +175,7 @@ doc.moveDown(1.5);
 doc.fontSize(11).text("Issued by: Heard Music / YOU CAN SAY YOU HEARD");
 doc.text("PRS / MCPS Registered Writer");
 doc.text("CAE/IPI: 876594277");
-
-  240,
-  650,
-  { width: 100 }
-);
+    
     doc.end();
   });
 }
