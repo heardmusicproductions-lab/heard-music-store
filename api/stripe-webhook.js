@@ -87,10 +87,22 @@ function getLicenseTerms(licenseType) {
       "Heard Music retains ownership of the instrumental composition. The licensee owns their original lyrics and vocal performance."
   };
 }
-function generateLicensePdf({ customerEmail, beatName, licenseType, orderId }) {
+async function generateLicensePdf({ customerEmail, beatName, licenseType, orderId }) {
+  const ycsyhLogoUrl = "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bgE2NoPIsVleiPfkaH0NX7gOWDrQmcKoSLs8x";
+  const heardLogoUrl = "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6b8rBwBUlMIC9kDjPbTXd4Uxn5FgEWlRSrzOcV";
+
+  const ycsyhLogoBuffer = Buffer.from(
+    await (await fetch(ycsyhLogoUrl)).arrayBuffer()
+  );
+
+  const heardLogoBuffer = Buffer.from(
+    await (await fetch(heardLogoUrl)).arrayBuffer()
+  );
+
   return new Promise((resolve) => {
     const doc = new PDFDocument({ margin: 50 });
-    
+doc.image(ycsyhLogoBuffer, 245, 20, { width: 100 });
+doc.moveDown(4);
 doc.moveDown(1);
     const buffers = [];
 
@@ -175,7 +187,7 @@ doc.moveDown(1.5);
 doc.fontSize(11).text("Issued by: Heard Music / YOU CAN SAY YOU HEARD");
 doc.text("PRS / MCPS Registered Writer");
 doc.text("CAE/IPI: 876594277");
-    
+doc.image(heardLogoBuffer, 245, 650, { width: 100 });    
     doc.end();
   });
 }
