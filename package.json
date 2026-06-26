@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "stripe": "latest"
+    "stripe": "latest",
+    "pdfkit": "latest"
   }
 }
