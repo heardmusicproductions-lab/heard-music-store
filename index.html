@@ -230,6 +230,10 @@ function renderBeats() {
       <button onclick="addToCart(beats[${index}].title,300,'Trackout Lease',beats[${index}].zip)">
         Trackout - £300
       </button>
+
+      <button onclick="window.location.href='mailto:heardmusicproductions@gmail.com?subject=Exclusive Licence Enquiry - ${beat.title}&body=Hi Heard Music,%0D%0A%0D%0AI would like to discuss an exclusive licence for ${beat.title}.%0D%0A%0D%0AThanks'">
+  Exclusive - Enquire
+</button>
     </div>
   `).join("");
 }
