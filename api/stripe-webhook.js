@@ -90,6 +90,14 @@ function getLicenseTerms(licenseType) {
 function generateLicensePdf({ customerEmail, beatName, licenseType, orderId }) {
   return new Promise((resolve) => {
     const doc = new PDFDocument({ margin: 50 });
+    doc.image(
+  'https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bgE2NoPIsVleiPfkaH0NX7gOWDrQmcKoSLs8x',
+  230,
+  20,
+  { width: 120 }
+);
+
+doc.moveDown(4);
     const buffers = [];
 
     doc.on("data", buffers.push.bind(buffers));
@@ -114,6 +122,7 @@ function generateLicensePdf({ customerEmail, beatName, licenseType, orderId }) {
     doc.text("CAE/IPI Number: 876594277");
     doc.text('Producer Tag: "You Can Say You Heard"');
     doc.text("Website: heardmusicycsyh.com");
+    doc.text("YCSYH Producer ID: YCSYH");
     doc.moveDown(1.5);
 
     doc.fontSize(13).text("Licence Details", { underline: true });
@@ -172,7 +181,12 @@ doc.moveDown(1.5);
 doc.fontSize(11).text("Issued by: Heard Music / YOU CAN SAY YOU HEARD");
 doc.text("PRS / MCPS Registered Writer");
 doc.text("CAE/IPI: 876594277");
-
+doc.image(
+  'https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6b8rBwBUlMIC9kDjPbTXd4Uxn5FgEWlRSrzOcV',
+  240,
+  650,
+  { width: 100 }
+);
     doc.end();
   });
 }
