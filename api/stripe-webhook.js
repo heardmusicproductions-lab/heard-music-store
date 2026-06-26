@@ -101,8 +101,8 @@ async function generateLicensePdf({ customerEmail, beatName, licenseType, orderI
 
   return new Promise((resolve) => {
     const doc = new PDFDocument({ margin: 50 });
-doc.image(ycsyhLogoBuffer, 245, 20, { width: 100 });
-doc.moveDown(4);
+doc.image(ycsyhLogoBuffer, 260, 20, { width: 70 });
+doc.moveDown(5);
 doc.moveDown(1);
     const buffers = [];
 
@@ -187,7 +187,7 @@ doc.moveDown(1.5);
 doc.fontSize(11).text("Issued by: Heard Music / YOU CAN SAY YOU HEARD");
 doc.text("PRS / MCPS Registered Writer");
 doc.text("CAE/IPI: 876594277");
-doc.image(heardLogoBuffer, 245, 650, { width: 100 });    
+doc.image(heardLogoBuffer, 260, 700, { width: 70 });    
     doc.end();
   });
 }
