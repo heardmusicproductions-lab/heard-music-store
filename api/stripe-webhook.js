@@ -1,5 +1,67 @@
 const Stripe = require("stripe");
+const PDFDocument = require("pdfkit");
+
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+function generateLicensePdf({ customerEmail, beatName, licenseType, orderId }) {
+  return new Promise((resolve) => {
+    const doc = new PDFDocument({ margin: 50 });
+    const buffers = [];
+
+    doc.on("data", buffers.push.bind(buffers));
+    doc.on("end", () => {
+      resolve(Buffer.concat(buffers));
+    });
+
+    const purchaseDate = new Date().toLocaleString("en-GB", {
+      timeZone: "Europe/London",
+    });
+
+    doc.fontSize(22).text("YOU CAN SAY YOU HEARD", { align: "center" });
+    doc.moveDown(0.5);
+    doc.fontSize(16).text("Official Beat Licence Certificate", { align: "center" });
+    doc.moveDown(2);
+
+    doc.fontSize(13).text("Producer Information", { underline: true });
+    doc.moveDown(0.5);
+    doc.fontSize(11).text("Producer Name: Heard Music");
+    doc.text("Registered PRS Pseudonym: Heard Music");
+    doc.text("PRS Pseudonym Number: 379132542");
+    doc.text("CAE/IPI Number: 876594277");
+    doc.text('Producer Tag: "You Can Say You Heard"');
+    doc.text("Website: heardmusicycsyh.com");
+    doc.moveDown(1.5);
+
+    doc.fontSize(13).text("Licence Details", { underline: true });
+    doc.moveDown(0.5);
+    doc.fontSize(11).text(`Beat Title: ${beatName}`);
+    doc.text(`Licence Type: ${licenseType}`);
+    doc.text(`Customer Email: ${customerEmail}`);
+    doc.text(`Purchase Date: ${purchaseDate}`);
+    doc.text(`Licence ID: ${orderId}`);
+    doc.moveDown(1.5);
+
+    doc.fontSize(13).text("Producer Credit", { underline: true });
+    doc.moveDown(0.5);
+    doc.fontSize(11).text("Credit must be given as:");
+    doc.moveDown(0.3);
+    doc.fontSize(14).text("Produced by Heard Music", { align: "center" });
+    doc.moveDown(1.5);
+
+    doc.fontSize(13).text("Licence Confirmation", { underline: true });
+    doc.moveDown(0.5);
+    doc.fontSize(10).text(
+      "This licence confirms that the customer named above has purchased the stated beat licence from Heard Music / YOU CAN SAY YOU HEARD. This document acts as proof of licence for the instrumental listed above."
+    );
+
+    doc.moveDown(2);
+    doc.fontSize(11).text("Issued by: Heard Music / YOU CAN SAY YOU HEARD");
+    doc.text("PRS / MCPS Registered Writer");
+    doc.text("CAE/IPI: 876594277");
+
+    doc.end();
+  });
+}
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
@@ -20,6 +82,7 @@ module.exports = async function handler(req, res) {
 
       const downloads = lineItems.data.map((item) => {
         const product = item.price.product;
+
         return {
           name: product.name,
           license: product.description || "Beat Licence",
@@ -36,6 +99,17 @@ module.exports = async function handler(req, res) {
           `
         )
         .join("");
+
+      const firstItem = downloads[0];
+
+      const pdfBuffer = await generateLicensePdf({
+        customerEmail,
+        beatName: firstItem?.name || "Beat Purchase",
+        licenseType: firstItem?.license || "Beat Licence",
+        orderId: session.id,
+      });
+
+      const pdfBase64 = pdfBuffer.toString("base64");
 
       if (customerEmail) {
         await fetch("https://api.brevo.com/v3/smtp/email", {
@@ -57,8 +131,15 @@ module.exports = async function handler(req, res) {
               <p>Your payment has been received successfully.</p>
               <p>Here is your download:</p>
               ${downloadHtml}
+              <p>Your official licence PDF is attached to this email.</p>
               <p>Heard Music / YOU CAN SAY YOU HEARD</p>
             `,
+            attachment: [
+              {
+                content: pdfBase64,
+                name: `heard-music-licence-${session.id}.pdf`,
+              },
+            ],
           }),
         });
 
