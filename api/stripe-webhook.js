@@ -216,17 +216,23 @@ module.exports = async function handler(req, res) {
           `
         )
         .join("");
+const attachments = await Promise.all(
+  downloads.map(async (item, index) => {
+    const pdfBuffer = await generateLicensePdf({
+      customerEmail,
+      beatName: item.name || "Beat Purchase",
+      licenseType: item.license || "Beat Licence",
+      orderId: `${session.id}-${index + 1}`,
+    });
 
-      const firstItem = downloads[0];
-
-      const pdfBuffer = await generateLicensePdf({
-        customerEmail,
-        beatName: firstItem?.name || "Beat Purchase",
-        licenseType: firstItem?.license || "Beat Licence",
-        orderId: session.id,
-      });
-
-      const pdfBase64 = pdfBuffer.toString("base64");
+    return {
+      content: pdfBuffer.toString("base64"),
+      name: `heard-music-licence-${item.name}-${item.license}.pdf`
+        .replace(/[^a-z0-9.-]/gi, "-")
+        .toLowerCase(),
+    };
+  })
+);
 
       if (customerEmail) {
         await fetch("https://api.brevo.com/v3/smtp/email", {
@@ -251,12 +257,7 @@ module.exports = async function handler(req, res) {
               <p>Your official licence PDF is attached to this email.</p>
               <p>Heard Music / YOU CAN SAY YOU HEARD</p>
             `,
-            attachment: [
-              {
-                content: pdfBase64,
-                name: `heard-music-licence-${session.id}.pdf`,
-              },
-            ],
+   attachment: attachments,
           }),
         });
 
