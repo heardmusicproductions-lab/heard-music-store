@@ -91,7 +91,7 @@ function generateLicensePdf({ customerEmail, beatName, licenseType, orderId }) {
   return new Promise((resolve) => {
     const doc = new PDFDocument({ margin: 50 });
     
-doc.moveDown(4);
+doc.moveDown(1);
     const buffers = [];
 
     doc.on("data", buffers.push.bind(buffers));
