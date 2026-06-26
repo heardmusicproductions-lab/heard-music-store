@@ -90,12 +90,7 @@ function getLicenseTerms(licenseType) {
 function generateLicensePdf({ customerEmail, beatName, licenseType, orderId }) {
   return new Promise((resolve) => {
     const doc = new PDFDocument({ margin: 50 });
-
-  230,
-  20,
-  { width: 120 }
-);
-
+    
 doc.moveDown(4);
     const buffers = [];
 
