@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "stripe": "latest",
-    "pdfkit": "latest"
+    "pdfkit": "latest",
     "mongodb": "latest",
-"uploadthing": "latest"
+    "uploadthing": "latest"
   }
 }
