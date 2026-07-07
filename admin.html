@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Heard Music Admin</title>
+</head>
+<body>
+  <h1>Heard Music Admin</h1>
+
+  <form id="beatForm">
+    <input name="title" placeholder="Beat Title" required><br><br>
+    <input name="category" placeholder="Genre / Category" required><br><br>
+    <input name="mood" placeholder="Mood"><br><br>
+    <input name="bpm" placeholder="BPM"><br><br>
+    <input name="key" placeholder="Key"><br><br>
+
+    <input name="mp3Price" placeholder="MP3 Price" value="45"><br><br>
+    <input name="wavPrice" placeholder="WAV Price" value="65"><br><br>
+    <input name="trackoutPrice" placeholder="Trackout Price" value="300"><br><br>
+
+    <input name="image" placeholder="Cover Image URL"><br><br>
+    <input name="previewUrl" placeholder="Preview Audio URL"><br><br>
+    <input name="mp3Url" placeholder="MP3 File URL"><br><br>
+    <input name="wavUrl" placeholder="WAV File URL"><br><br>
+    <input name="trackoutUrl" placeholder="Trackout ZIP URL"><br><br>
+
+    <textarea name="description" placeholder="Description"></textarea><br><br>
+
+    <button type="submit">Create Beat</button>
+  </form>
+
+  <script>
+    document.getElementById("beatForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const form = new FormData(e.target);
+      const beatData = Object.fromEntries(form.entries());
+
+      beatData.mp3Price = Number(beatData.mp3Price);
+      beatData.wavPrice = Number(beatData.wavPrice);
+      beatData.trackoutPrice = Number(beatData.trackoutPrice);
+      beatData.published = true;
+      beatData.sold = false;
+
+      const res = await fetch("/api/beats", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(beatData)
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert("Error: " + data.error);
+        return;
+      }
+
+      alert("Beat saved!");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
