@@ -27,7 +27,10 @@
 
     <button type="submit">Create Beat</button>
   </form>
+    <hr>
 
+<h2>Manage Beats</h2>
+<div id="beatsList">Loading beats...</div>
   <script>
     document.getElementById("beatForm").addEventListener("submit", async function(e) {
       e.preventDefault();
@@ -57,6 +60,53 @@
       alert("Beat saved!");
       e.target.reset();
     });
+    async function loadBeats() {
+  const res = await fetch("/api/beats");
+  const data = await res.json();
+
+  const beatsList = document.getElementById("beatsList");
+
+  if (!data.beats || data.beats.length === 0) {
+    beatsList.innerHTML = "<p>No beats found.</p>";
+    return;
+  }
+
+  beatsList.innerHTML = data.beats.map(beat => `
+    <div style="border:1px solid #ccc; padding:12px; margin:10px 0;">
+      <strong>${beat.title || "Untitled Beat"}</strong><br>
+      Genre: ${beat.category || "N/A"}<br>
+      Mood: ${beat.mood || "N/A"}<br>
+      BPM: ${beat.bpm || "N/A"}<br>
+      Key: ${beat.key || "N/A"}<br><br>
+
+      <button onclick="deleteBeat('${beat._id}')">Delete</button>
+    </div>
+  `).join("");
+}
+
+async function deleteBeat(id) {
+  if (!confirm("Delete this beat?")) return;
+
+  const res = await fetch("/api/beats", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ id })
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    alert("Error deleting beat: " + data.error);
+    return;
+  }
+
+  alert("Beat deleted");
+  loadBeats();
+}
+
+loadBeats();
   </script>
 </body>
 </html>
