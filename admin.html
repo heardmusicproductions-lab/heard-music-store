@@ -65,8 +65,8 @@ const res = await fetch("/api/beats", {
       alert("Beat saved!");
       e.target.reset();
     });
-    async function loadBeats() {
-  const res = await fetch("/api/beats");
+async function loadBeats() {
+  const res = await fetch("/api/beats?t=" + Date.now());
   const data = await res.json();
 
   const beatsList = document.getElementById("beatsList");
