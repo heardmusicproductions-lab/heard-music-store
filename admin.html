@@ -136,7 +136,7 @@ alert(editingBeatId ? "Beat updated!" : "Beat saved!");
 editingBeatId = null;
 e.target.reset();
 document.querySelector("button[type='submit']").textContent = "Create Beat";
-loadBeats();
+await loadBeats();
 }
 
 loadBeats();
