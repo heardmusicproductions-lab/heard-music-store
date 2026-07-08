@@ -32,6 +32,7 @@
 <h2>Manage Beats</h2>
 <div id="beatsList">Loading beats...</div>
   <script>
+    let editingBeatId = null;
     document.getElementById("beatForm").addEventListener("submit", async function(e) {
       e.preventDefault();
 
@@ -44,8 +45,12 @@
       beatData.published = true;
       beatData.sold = false;
 
-      const res = await fetch("/api/beats", {
-        method: "POST",
+     if (editingBeatId) {
+  beatData.id = editingBeatId;
+}
+
+const res = await fetch("/api/beats", {
+  method: editingBeatId ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(beatData)
       });
@@ -79,11 +84,36 @@
       BPM: ${beat.bpm || "N/A"}<br>
       Key: ${beat.key || "N/A"}<br><br>
 
-      <button onclick="deleteBeat('${beat._id}')">Delete</button>
+      <button onclick='editBeat(${JSON.stringify(beat)})'>Edit</button>
+<button onclick="deleteBeat('${beat._id}')">Delete</button>
     </div>
   `).join("");
 }
+function editBeat(beat) {
+  editingBeatId = beat._id;
 
+  const form = document.getElementById("beatForm");
+
+  form.title.value = beat.title || "";
+  form.category.value = beat.category || "";
+  form.mood.value = beat.mood || "";
+  form.bpm.value = beat.bpm || "";
+  form.key.value = beat.key || "";
+
+  form.mp3Price.value = beat.mp3Price || 45;
+  form.wavPrice.value = beat.wavPrice || 65;
+  form.trackoutPrice.value = beat.trackoutPrice || 300;
+
+  form.image.value = beat.image || "";
+  form.previewUrl.value = beat.previewUrl || "";
+  form.mp3Url.value = beat.mp3Url || "";
+  form.wavUrl.value = beat.wavUrl || "";
+  form.trackoutUrl.value = beat.trackoutUrl || "";
+  form.description.value = beat.description || "";
+
+  document.querySelector("button[type='submit']").textContent = "Update Beat";
+  window.scrollTo(0, 0);
+}
 async function deleteBeat(id) {
   if (!confirm("Delete this beat?")) return;
 
@@ -102,8 +132,10 @@ async function deleteBeat(id) {
     return;
   }
 
- alert("Beat saved!");
+alert(editingBeatId ? "Beat updated!" : "Beat saved!");
+editingBeatId = null;
 e.target.reset();
+document.querySelector("button[type='submit']").textContent = "Create Beat";
 loadBeats();
 }
 
