@@ -219,17 +219,18 @@ function renderBeats() {
       <h3>${beat.title}</h3>
       <p>${beat.description}</p>
 
-      <button onclick="addToCart(beats[${index}].title,45,'MP3 Lease',beats[${index}].mp3)">
-        MP3 - £45
-      </button>
+     <button onclick="addToCart(beats[index].title,beat.mp3Price,'MP3 Lease',beats[index].mp3)">
+  MP3 - £${beat.mp3Price}
+</button>
 
-      <button onclick="addToCart(beats[${index}].title,65,'WAV Lease',beats[${index}].wav)">
-        WAV - £65
-      </button>
+   <button onclick="addToCart(beats[index].title,beat.wavPrice,'WAV Lease',beats[index].wav)">
+  WAV - £${beat.wavPrice}
+</button>
 
-      <button onclick="addToCart(beats[${index}].title,300,'Trackout Lease',beats[${index}].zip)">
-        Trackout - £300
-      </button>
+  <button onclick="addToCart(beats[index].title,beat.trackoutPrice,'Trackout Lease',beats[index].zip)">
+  Trackout - £${beat.trackoutPrice}
+</button>
+
 
       <button onclick="window.location.href='mailto:heardmusicproductions@gmail.com?subject=Exclusive Licence Enquiry - ${beat.title}&body=Hi Heard Music,%0D%0A%0D%0AI would like to discuss an exclusive licence for ${beat.title}.%0D%0A%0D%0AThanks'">
   Exclusive - Enquire
