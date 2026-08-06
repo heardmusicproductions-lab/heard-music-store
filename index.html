@@ -192,9 +192,9 @@ footer{text-align:center;padding:30px;color:#777}
     const response = await fetch('/api/beats');
     const data = await response.json();
 
-    if (Array.isArray(data) && data.length > 0) {
-      beats = data;
-    }
+if (Array.isArray(data.beats) && data.beats.length > 0) {
+  beats = data.beats;
+}
   } catch (error) {
     console.error('Could not load beats from admin:', error);
   }
