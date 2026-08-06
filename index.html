@@ -49,7 +49,7 @@ footer{text-align:center;padding:30px;color:#777}
 <footer>© Heard Music / YOU CAN SAY YOU HEARD</footer>
 
 <script>
-  const beats = [
+  let beats = [
   {
     title: "See The Light",
     description: "Soulful melodic beat with emotional energy.",
@@ -187,6 +187,18 @@ footer{text-align:center;padding:30px;color:#777}
   zip: "https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6btIknfMbwuEJUGkWBH5dVzI0KhPQXYSx8AojD"
 }
 ];
+  async function loadBeats() {
+  try {
+    const response = await fetch('/api/beats');
+    const data = await response.json();
+
+    if (Array.isArray(data) && data.length > 0) {
+      beats = data;
+    }
+  } catch (error) {
+    console.error('Could not load beats from admin:', error);
+  }
+}
 let cart = JSON.parse(localStorage.getItem("heardCart")) || [];
 
 function saveCart(){
@@ -293,8 +305,10 @@ async function checkout(){
   }
 }
 
-renderBeats();
-renderCart();
+loadBeats().then(() => {
+  renderBeats();
+  renderCart();
+});
 </script>
 
 </body>
