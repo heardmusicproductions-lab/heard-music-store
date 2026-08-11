@@ -92,7 +92,7 @@ async function loadBeats() {
       BPM: ${beat.bpm || "N/A"}<br>
       Key: ${beat.key || "N/A"}<br><br>
 
-<button onclick="editBeat(JSON.parse(decodeURIComponent('${encodeURIComponent(JSON.stringify(beat))}')))">Edit</button>
+<button onclick="editBeat(JSON.parse(decodeURIComponent('${encodeURIComponent(JSON.stringify(beat)).replace(/'/g, "%27")}')))">Edit</button>
 <button onclick="deleteBeat('${beat._id}')">Delete</button>
     </div>
   `).join("");
