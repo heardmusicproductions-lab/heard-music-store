@@ -6,7 +6,24 @@
 <title>Heard Music Store</title>
 <style>
 body{margin:0;background:#0f0f0f;color:white;font-family:Arial,sans-serif}
-header{display:flex;justify-content:space-between;align-items:center;text-align:center;padding:20px;background:#111;border-bottom:1px solid #222;position:sticky;top:0}
+header{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  padding:20px;
+  background:#111;
+  border-bottom:1px solid #222;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+  .logo{
+  justify-self:start;
+}
+
+.cart-btn{
+  justify-self:end;
+}
 .logo{font-size:24px;font-weight:bold;color:#d4af37}
 .cart-btn{background:#d4af37;color:#000;padding:10px 15px;border-radius:8px;font-weight:bold;cursor:pointer}
 .hero{text-align:center;padding:70px 20px}
