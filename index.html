@@ -228,11 +228,11 @@ function addBeatToCart(index, type) {
   const beat = beats[index];
 
   if (type === "mp3") {
-    addToCart(beat.title, beat.mp3Price, "MP3 Lease", beat.mp3);
+    addToCart(beat.title, beat.mp3Price, "MP3 Lease", beat.mp3url);
   }
 
   if (type === "wav") {
-    addToCart(beat.title, beat.wavPrice, "WAV Lease", beat.wav);
+    addToCart(beat.title, beat.wavPrice, "WAV Lease", beat.wavurl);
   }
 
   if (type === "trackout") {
@@ -240,7 +240,7 @@ function addBeatToCart(index, type) {
       beat.title,
       beat.trackoutPrice,
       "Trackout Lease",
-      beat.zip
+      beat.trackouturl
     );
   }
 }
