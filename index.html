@@ -69,6 +69,44 @@ footer{text-align:center;padding:30px;color:#777}
     flex-wrap:wrap;
     gap:14px;
   }
+} 
+
+.categories {
+  padding: 35px 20px 10px;
+  text-align: center;
+}
+
+.categories h2 {
+  color: #d4af37;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.category-buttons button {
+  background: #181818;
+  color: #fff;
+  border: 1px solid #333;
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.category-buttons button:hover {
+  background: #d4af37;
+  color: #000;
+  border-color: #d4af37;
+  transform: translateY(-2px);
 }  
 </style>
 </head>
@@ -102,7 +140,24 @@ footer{text-align:center;padding:30px;color:#777}
     <source src="https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6b6sODQOtWjbkVoFIZCEyRHX8JrYMnO37sG5ad">
   </video>
 </section>  
+<section class="categories">
+  <h2>Browse By Genre</h2>
 
+  <div class="category-buttons">
+    <button onclick="filterBeats('all')">All</button>
+    <button onclick="filterBeats('afrobeats')">Afrobeats</button>
+    <button onclick="filterBeats('cinematic')">Cinematic</button>
+    <button onclick="filterBeats('drill')">Drill</button>
+    <button onclick="filterBeats('garage-grime')">Garage / Grime</button>
+    <button onclick="filterBeats('hip-hop')">Hip-Hop</button>
+    <button onclick="filterBeats('jersey-club')">Jersey Club</button>
+    <button onclick="filterBeats('rnb')">R&B</button>
+    <button onclick="filterBeats('reggae')">Reggae</button>
+    <button onclick="filterBeats('trap')">Trap</button>
+    <button onclick="filterBeats('uk-rap')">UK Rap</button>
+    <button onclick="filterBeats('other')">Other</button>
+  </div>
+</section>
 <section class="beats" id="beatsContainer"></section>
 <section style="text-align:center;padding:45px 20px 30px;">
   <img
