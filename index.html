@@ -30,9 +30,49 @@ footer{text-align:center;padding:30px;color:#777}
 
 <header>
   <div class="logo">HEARD MUSIC</div>
-  <div class="cart-btn" onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</div>
-</header>
 
+  <nav class="main-nav">
+    <a href="/">Home</a>
+    <a href="#beatsContainer">Beat Store</a>
+    <a href="/about.html">About</a>
+    <a href="/publishing.html">Publishing</a>
+    <a href="/admin.html">Admin</a>
+  </nav>
+
+  <div class="cart-btn" onclick="toggleCart()">
+    Cart (<span id="cartCount">0</span>)
+  </div>
+</header>
+.main-nav{
+  display:flex;
+  gap:24px;
+  align-items:center;
+}
+
+.main-nav a{
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.main-nav a:hover{
+  color:#d4af37;
+}
+
+@media (max-width:800px){
+  header{
+    flex-wrap:wrap;
+    gap:15px;
+  }
+
+  .main-nav{
+    width:100%;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+}
 <section class="hero">
   <h1>Premium Beats</h1>
   <p>Industry quality production for artists worldwide. UK Drill, Trap, Cinematic, Jersey Club and more.</p>
