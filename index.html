@@ -351,7 +351,15 @@ footer{text-align:center;padding:30px;color:#777}
     const data = await response.json();
 
 if (Array.isArray(data.beats) && data.beats.length > 0) {
-beats = [...beats, ...data.beats];
+beats = [...beats, ...data.beats];beats = beats.map(beat => ({
+  ...beat,
+  mp3Price: beat.mp3Price ?? 45,
+  wavPrice: beat.wavPrice ?? 60,
+  trackoutPrice: beat.trackoutPrice ?? 300,
+  mp3Url: beat.mp3Url ?? beat.mp3,
+  wavUrl: beat.wavUrl ?? beat.wav,
+  trackoutUrl: beat.trackoutUrl ?? beat.zip
+}));
 }
   } catch (error) {
     console.error('Could not load beats from admin:', error);
