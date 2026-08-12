@@ -345,7 +345,7 @@ footer{text-align:center;padding:30px;color:#777}
     const data = await response.json();
 
 if (Array.isArray(data.beats) && data.beats.length > 0) {
-  beats = data.beats;
+beats = [...beats, ...data.beats];
 }
   } catch (error) {
     console.error('Could not load beats from admin:', error);
