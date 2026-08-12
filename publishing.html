@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publishing | Heard Music</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #0f0f0f;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 18px 28px;
+      background: #111;
+      border-bottom: 1px solid #222;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      color: #d4af37;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #d4af37;
+    }
+
+    .hero {
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 70px 20px;
+      background: radial-gradient(circle at center, #252525 0%, #151515 50%, #0f0f0f 80%);
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .eyebrow {
+      color: #d4af37;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: 54px;
+      margin: 0 0 20px;
+    }
+
+    .hero p {
+      color: #ccc;
+      font-size: 18px;
+      line-height: 1.7;
+      margin: 0 auto;
+      max-width: 760px;
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 70px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: #aaa;
+      margin: 0;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service-card {
+      background: #181818;
+      border: 1px solid #333;
+      border-radius: 14px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .service-card h3 {
+      color: #d4af37;
+      margin-top: 0;
+      font-size: 22px;
+    }
+
+    .service-card p {
+      color: #ccc;
+      line-height: 1.7;
+    }
+
+    .artist-section {
+      background: #151515;
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+    }
+
+    .artist-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 70px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .artist-copy h2 {
+      color: #d4af37;
+      font-size: 34px;
+      margin-top: 0;
+    }
+
+    .artist-copy p {
+      color: #ccc;
+      line-height: 1.8;
+    }
+
+    .artist-box {
+      border: 1px solid #444;
+      border-radius: 14px;
+      padding: 35px;
+      text-align: center;
+      background: #181818;
+    }
+
+    .artist-box h3 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .artist-box p {
+      color: #aaa;
+    }
+
+    .contact-section {
+      text-align: center;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 28px;
+      background: #d4af37;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 20px;
+      border-top: 1px solid #222;
+      color: #777;
+    }
+
+    footer .footer-brand {
+      color: #d4af37;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 800px) {
+      header {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        text-align: center;
+      }
+
+      .logo {
+        text-align: center;
+      }
+
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .services {
+        grid-template-columns: 1fr;
+      }
+
+      .artist-wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">HEARD MUSIC</div>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/#beatsContainer">Beat Store</a>
+    <a href="/about.html">About</a>
+    <a href="/publishing.html" class="active">Publishing</a>
+    <a href="/admin.html">Admin</a>
+  </nav>
+
+  <div></div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">HEARD MUSIC PUBLISHING</div>
+    <h1>Built Beyond The Beat.</h1>
+    <p>
+      Heard Music supports artists, writers and creators with original production,
+      songwriting, collaboration and publishing-focused services built around the music.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title">
+    <h2>What We Do</h2>
+    <p>Creative support from the first idea through to the finished record.</p>
+  </div>
+
+  <div class="services">
+    <div class="service-card">
+      <h3>Production</h3>
+      <p>
+        Original beats and tailored production for artists across UK Drill, Trap,
+        R&B, Afrobeats, Dancehall, Hip-Hop, Cinematic music and more.
+      </p>
+    </div>
+
+    <div class="service-card">
+      <h3>Songwriting</h3>
+      <p>
+        Creative development, arrangement and songwriting support designed to help
+        turn ideas into complete, distinctive records.
+      </p>
+    </div>
+
+    <div class="service-card">
+      <h3>Publishing</h3>
+      <p>
+        A growing home for original music, collaborations and artist development,
+        with a focus on long-term catalogue building and creative identity.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="artist-section">
+  <div class="artist-wrap">
+    <div class="artist-copy">
+      <h2>Artist Development</h2>
+      <p>
+        Heard Music is built around more than supplying instrumentals. The goal is
+        to create lasting records and help artists shape a sound that feels like
+        their own.
+      </p>
+
+      <p>
+        From production and songwriting to creative direction and collaboration,
+        every project is approached with the artist's identity at the centre.
+      </p>
+    </div>
+
+    <div class="artist-box">
+      <h3>YOU CAN SAY YOU HEARD</h3>
+      <p>A sound. A standard. An identity.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section contact-section">
+  <div class="section-title">
+    <h2>Work With Heard Music</h2>
+    <p>
+      For production, songwriting, publishing or collaboration enquiries,
+      get in touch directly.
+    </p>
+  </div>
+
+  <a
+    class="contact-btn"
+    href="mailto:heardmusicproductions@gmail.com?subject=Heard Music Publishing Enquiry"
+  >
+    Contact Heard Music
+  </a>
+</section>
+
+<footer>
+  <div class="footer-brand">HEARD MUSIC</div>
+  <div>YOU CAN SAY YOU HEARD</div>
+  <div style="margin-top:8px;font-size:12px;">
+    © 2026 Heard Music. All rights reserved.
+  </div>
+</footer>
+
+</body>
+</html>
