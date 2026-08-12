@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beat Preview | Heard Music</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #0f0f0f;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 28px;
+      background: #111;
+      border-bottom: 1px solid #222;
+    }
+
+    .brand {
+      color: #d4af37;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .back-link {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .preview-wrap {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .preview-art {
+      width: 100%;
+      border-radius: 14px;
+      background: #181818;
+    }
+
+    .preview-info h1 {
+      font-size: 42px;
+      margin: 0 0 15px;
+    }
+
+    .genre {
+      color: #d4af37;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-transform: capitalize;
+    }
+
+    .description {
+      color: #ccc;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    audio {
+      width: 100%;
+      margin-bottom: 25px;
+    }
+
+    .license-btn {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+      background: #d4af37;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @media (max-width: 800px) {
+      .preview-wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">HEARD MUSIC</div>
+  <a class="back-link" href="/#beatsContainer">← Back to Beat Store</a>
+</header>
+
+<main class="preview-wrap">
+  <div>
+    <img id="beatImage" class="preview-art" src="" alt="Beat artwork">
+  </div>
+
+  <div class="preview-info">
+    <h1 id="beatTitle">Loading Beat...</h1>
+    <div id="beatGenre" class="genre"></div>
+    <p id="beatDescription" class="description"></p>
+
+    <audio id="beatPlayer" controls></audio>
+
+    <button id="mp3Btn" class="license-btn"></button>
+    <button id="wavBtn" class="license-btn"></button>
+    <button id="trackoutBtn" class="license-btn"></button>
+    <button id="exclusiveBtn" class="license-btn">Exclusive - Enquire</button>
+  </div>
+</main>
+<script>
+  const beat = JSON.parse(localStorage.getItem("selectedBeat"));
+
+  if (beat) {
+    document.getElementById("beatTitle").textContent = beat.title || "Beat Preview";
+    document.getElementById("beatGenre").textContent = beat.category || "";
+    document.getElementById("beatDescription").textContent = beat.description || "";
+
+    document.getElementById("beatImage").src = beat.image || "";
+
+    const player = document.getElementById("beatPlayer");
+    player.src = beat.mp3Url || beat.mp3 || "";
+
+    const mp3Price = beat.mp3Price ?? 45;
+    const wavPrice = beat.wavPrice ?? 60;
+    const trackoutPrice = beat.trackoutPrice ?? 300;
+
+    document.getElementById("mp3Btn").textContent = `MP3 - £${mp3Price}`;
+    document.getElementById("wavBtn").textContent = `WAV - £${wavPrice}`;
+    document.getElementById("trackoutBtn").textContent = `Trackout - £${trackoutPrice}`;
+
+    document.getElementById("exclusiveBtn").onclick = () => {
+      window.location.href =
+        `mailto:heardmusicproductions@gmail.com?subject=Exclusive Licence Enquiry - ${encodeURIComponent(beat.title)}`;
+    };
+  } else {
+    document.getElementById("beatTitle").textContent = "Beat not found";
+    document.getElementById("beatDescription").textContent =
+      "Return to the Beat Store and choose a beat.";
+  }
+</script>
+</body>
+</html>
