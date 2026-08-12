@@ -124,7 +124,7 @@
   if (beat) {
     document.getElementById("beatTitle").textContent = beat.title || "Beat Preview";
     document.getElementById("beatGenre").textContent = beat.category || "";
-    document.getElementById("beatDescription").textContent = beat.description || "";
+   document.getElementById("beatDescription").textContent = beat.longDescription || beat.description || "";
 
     document.getElementById("beatImage").src = beat.image || "";
 
