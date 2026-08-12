@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+f<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -415,12 +415,16 @@ function addBeatToCart(index, type) {
     );
   }
 }
+function openBeat(index) {
+  localStorage.setItem("selectedBeat", JSON.stringify(beats[index]));
+  window.location.href = "/beat.html";
+}  
 function renderBeats() {
   const container = document.getElementById("beatsContainer");
 
   container.innerHTML = beats.map((beat, index) => `
     <div class="beat-card">
-      <img src="${beat.image}" alt="${beat.title}" style="width:100%;border-radius:10px;margin-bottom:10px;">
+    <img src="${beat.image}" alt="${beat.title}" onclick="openBeat(${index})" style="width:100%;border-radius:10px;margin-bottom:10px;cursor:pointer;">
       <h3>${beat.title}</h3>
       <p>${beat.description}</p>
       
@@ -456,7 +460,7 @@ function filterBeats(category) {
 
     return `
       <div class="beat-card">
-        <img src="${beat.image}" alt="${beat.title}" style="width:100%;border-radius:10px;margin-bottom:10px;">
+        <img src="${beat.image}" alt="${beat.title}" onclick="openBeat(${originalIndex})" style="width:100%;border-radius:10px;margin-bottom:10px;cursor:pointer;">
         <h3>${beat.title}</h3>
         <p>${beat.description}</p>
 
