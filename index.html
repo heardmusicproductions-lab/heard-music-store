@@ -445,15 +445,57 @@ footer{text-align:center;padding:30px;color:#777}
     const data = await response.json();
 
 if (Array.isArray(data.beats) && data.beats.length > 0) {
-beats = [...beats, ...data.beats];beats = beats.map(beat => ({
-  ...beat,
-  mp3Price: beat.mp3Price ?? 45,
-  wavPrice: beat.wavPrice ?? 60,
-  trackoutPrice: beat.trackoutPrice ?? 300,
-  mp3Url: beat.mp3Url ?? beat.mp3,
-  wavUrl: beat.wavUrl ?? beat.wav,
-  trackoutUrl: beat.trackoutUrl ?? beat.zip
-}));
+
+  const beatMap = new Map();
+
+  // Keep the original beats already in index.html
+  beats.forEach(beat => {
+    beatMap.set(beat.title.trim().toLowerCase(), beat);
+  });
+
+  // Add admin/API beats, but merge duplicates instead of adding them twice
+  data.beats.forEach(apiBeat => {
+    const key = apiBeat.title.trim().toLowerCase();
+    const existingBeat = beatMap.get(key);
+
+    if (existingBeat) {
+      beatMap.set(key, {
+        ...existingBeat,
+        ...apiBeat,
+
+        // Keep the long description from index.html if it already exists
+        longDescription:
+          existingBeat.longDescription ||
+          apiBeat.longDescription ||
+          apiBeat.description,
+
+        mp3Price: apiBeat.mp3Price ?? existingBeat.mp3Price ?? 45,
+        wavPrice: apiBeat.wavPrice ?? existingBeat.wavPrice ?? 60,
+        trackoutPrice: apiBeat.trackoutPrice ?? existingBeat.trackoutPrice ?? 300,
+
+        mp3Url: apiBeat.mp3Url ?? apiBeat.mp3 ?? existingBeat.mp3Url ?? existingBeat.mp3,
+        wavUrl: apiBeat.wavUrl ?? apiBeat.wav ?? existingBeat.wavUrl ?? existingBeat.wav,
+        trackoutUrl:
+          apiBeat.trackoutUrl ??
+          apiBeat.zip ??
+          existingBeat.trackoutUrl ??
+          existingBeat.zip
+      });
+    } else {
+      // Any brand-new beat uploaded through admin still gets added
+      beatMap.set(key, {
+        ...apiBeat,
+        mp3Price: apiBeat.mp3Price ?? 45,
+        wavPrice: apiBeat.wavPrice ?? 60,
+        trackoutPrice: apiBeat.trackoutPrice ?? 300,
+        mp3Url: apiBeat.mp3Url ?? apiBeat.mp3,
+        wavUrl: apiBeat.wavUrl ?? apiBeat.wav,
+        trackoutUrl: apiBeat.trackoutUrl ?? apiBeat.zip
+      });
+    }
+  });
+
+  beats = Array.from(beatMap.values());
 }
   } catch (error) {
     console.error('Could not load beats from admin:', error);
