@@ -450,12 +450,13 @@ if (Array.isArray(data.beats) && data.beats.length > 0) {
 
   // Keep the original beats already in index.html
   beats.forEach(beat => {
-    beatMap.set(beat.title.trim().toLowerCase(), beat);
+  const key = (beat.mp3Url || beat.mp3 || beat.image || beat.title).trim().toLowerCase();
+beatMap.set(key, beat);
   });
 
   // Add admin/API beats, but merge duplicates instead of adding them twice
   data.beats.forEach(apiBeat => {
-    const key = apiBeat.title.trim().toLowerCase();
+  const key = (apiBeat.mp3Url || apiBeat.mp3 || apiBeat.image || apiBeat.title).trim().toLowerCase();
     const existingBeat = beatMap.get(key);
 
     if (existingBeat) {
