@@ -483,6 +483,24 @@ function addToCart(name, price, license, downloadUrl){
   });
 
   saveCart();
+  const notice = document.createElement("div");
+notice.textContent = "✓ Added to basket";
+notice.style.position = "fixed";
+notice.style.top = "20px";
+notice.style.left = "50%";
+notice.style.transform = "translateX(-50%)";
+notice.style.background = "#d4af37";
+notice.style.color = "#000";
+notice.style.padding = "12px 18px";
+notice.style.borderRadius = "8px";
+notice.style.fontWeight = "bold";
+notice.style.zIndex = "9999";
+
+document.body.appendChild(notice);
+
+setTimeout(() => {
+  notice.remove();
+}, 1500);
 }
 
 function removeFromCart(index){
