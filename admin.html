@@ -46,11 +46,25 @@
     <input name="wavPrice" placeholder="WAV Price" value="65"><br><br>
     <input name="trackoutPrice" placeholder="Trackout Price" value="300"><br><br>
 
-    <input name="image" placeholder="Cover Image URL"><br><br>
-    <input name="previewUrl" placeholder="Preview Audio URL"><br><br>
-    <input name="mp3Url" placeholder="MP3 File URL"><br><br>
-    <input name="wavUrl" placeholder="WAV File URL"><br><br>
-    <input name="trackoutUrl" placeholder="Trackout ZIP URL"><br><br>
+<label>Cover Image</label><br>
+<input type="file" id="imageFile" accept="image/*"><br>
+<input type="hidden" name="image"><br>
+
+<label>Preview Audio</label><br>
+<input type="file" id="previewFile" accept="audio/*"><br>
+<input type="hidden" name="previewUrl"><br>
+
+<label>MP3 File</label><br>
+<input type="file" id="mp3File" accept=".mp3,audio/mpeg"><br>
+<input type="hidden" name="mp3Url"><br>
+
+<label>WAV File</label><br>
+<input type="file" id="wavFile" accept=".wav,audio/wav"><br>
+<input type="hidden" name="wavUrl"><br>
+
+<label>Trackout ZIP</label><br>
+<input type="file" id="trackoutFile" accept=".zip,application/zip"><br>
+<input type="hidden" name="trackoutUrl"><br>
 
     <textarea name="description" placeholder="Description"></textarea><br><br>
 
@@ -61,10 +75,45 @@
 <h2>Manage Beats</h2>
 <div id="beatsList">Loading beats...</div>
   <script>
+  const uploadthingClientPromise =
+  import("https://esm.sh/uploadthing/client");
+
+async function uploadFile(inputId, routeName, hiddenName) {
+  const input = document.getElementById(inputId);
+
+  if (!input || !input.files || input.files.length === 0) {
+    return;
+  }
+
+  const { genUploader } = await uploadthingClientPromise;
+
+  const { uploadFiles } = genUploader({
+    url: new URL("/api/upload", window.location.origin),
+    package: "vanilla"
+  });
+
+  const result = await uploadFiles(routeName, {
+    files: [input.files[0]]
+  });
+
+  if (!result || !result[0] || !result[0].url) {
+    throw new Error("Upload failed");
+  }
+
+  document.querySelector(
+    `input[name="${hiddenName}"]`
+  ).value = result[0].url;
+}
     let editingBeatId = null;
     document.getElementById("beatForm").addEventListener("submit", async function(e) {
       e.preventDefault();
-
+await Promise.all([
+  uploadFile("imageFile", "coverImage", "image"),
+  uploadFile("previewFile", "beatFile", "previewUrl"),
+  uploadFile("mp3File", "beatFile", "mp3Url"),
+  uploadFile("wavFile", "beatFile", "wavUrl"),
+  uploadFile("trackoutFile", "beatFile", "trackoutUrl")
+]);
       const form = new FormData(e.target);
       const beatData = Object.fromEntries(form.entries());
 
