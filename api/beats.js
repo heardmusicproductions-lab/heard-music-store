@@ -1,5 +1,34 @@
 const { MongoClient, ObjectId } = require("mongodb");
+const crypto = require("crypto");
 
+function isAdmin(req) {
+  const cookies = req.headers.cookie || "";
+  const match = cookies.match(/(?:^|;\s*)heard_admin=([^;]+)/);
+
+  if (!match || !process.env.ADMIN_SESSION_SECRET) {
+    return false;
+  }
+
+  const [expires, signature] = decodeURIComponent(match[1]).split(".");
+
+  if (!expires || !signature || Number(expires) < Date.now()) {
+    return false;
+  }
+
+  const expected = crypto
+    .createHmac("sha256", process.env.ADMIN_SESSION_SECRET)
+    .update(String(expires))
+    .digest("hex");
+
+  if (signature.length !== expected.length) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(expected)
+  );
+}
 let cachedClient = null;
 
 async function connectToDatabase() {
@@ -17,6 +46,9 @@ async function connectToDatabase() {
 }
 
 module.exports = async function handler(req, res) {
+  if (req.method !== "GET" && !isAdmin(req)) {
+  return res.status(401).json({ error: "Unauthorized" });
+}
   try {
     const client = await connectToDatabase();
     const db = client.db("test");
