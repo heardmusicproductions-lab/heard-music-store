@@ -4,13 +4,34 @@
   <title>Heard Music Admin</title>
 </head>
 <body>
-  <script>
+ <script>
+(async () => {
   const password = prompt("Enter admin password:");
 
-  if (password !== "Youcansayyouheard6!") {
-    alert("Access denied");
+  if (!password) {
+    window.location.href = "/";
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/admin-login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ password })
+    });
+
+    if (!response.ok) {
+      alert("Access denied");
+      window.location.href = "/";
+      return;
+    }
+  } catch (error) {
+    alert("Login error");
     window.location.href = "/";
   }
+})();
 </script>
   <h1>Heard Music Admin</h1>
 
