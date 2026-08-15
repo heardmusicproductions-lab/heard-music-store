@@ -104,7 +104,10 @@ if (req.method === "GET" && req.query?.debug === "token") {
     startsWithEyJ: token.startsWith("eyJ"),
     hasApiKey: !!decoded?.apiKey,
     hasAppId: !!decoded?.appId,
-    hasRegions: Array.isArray(decoded?.regions)
+    hasRegions: Array.isArray(decoded?.regions),
+    apikeyType: typeof decoded?.apikey,
+    appIdtype: typeof decoded?.appId,
+    regioncount: Array.isArray(decoded?.regions)
   });
 }
   try {
