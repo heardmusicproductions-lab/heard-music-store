@@ -87,29 +87,8 @@ async function getUploadHandler() {
 }
 
 module.exports = async function handler(req, res) {
-  const token = process.env.UPLOADTHING_TOKEN || "";
 
-if (req.method === "GET" && req.query?.debug === "token") {
-  let decoded = null;
 
-  try {
-    decoded = JSON.parse(
-      Buffer.from(token, "base64").toString("utf8")
-    );
-  } catch (e) {}
-
-  return res.status(200).json({
-    exists: !!token,
-    length: token.length,
-    startsWithEyJ: token.startsWith("eyJ"),
-    hasApiKey: !!decoded?.apiKey,
-    hasAppId: !!decoded?.appId,
-    hasRegions: Array.isArray(decoded?.regions),
-    apikeyType: typeof decoded?.apikey,
-    appIdtype: typeof decoded?.appId,
-    regioncount: Array.isArray(decoded?.regions)
-  });
-}
   try {
     if (req.method !== "GET" && req.method !== "POST") {
       return res.status(405).json({ error: "Method not allowed" });
