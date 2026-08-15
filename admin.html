@@ -96,13 +96,13 @@ async function uploadFile(inputId, routeName, hiddenName) {
     files: [input.files[0]]
   });
 
-  if (!result || !result[0] || !result[0].url) {
+  if (!result || !result[0] || !result[0].ufsurl) {
     throw new Error("Upload failed");
   }
 
   document.querySelector(
     `input[name="${hiddenName}"]`
-  ).value = result[0].url;
+  ).value = result[0].ufsurl;
 }
     let editingBeatId = null;
     document.getElementById("beatForm").addEventListener("submit", async function(e) {
