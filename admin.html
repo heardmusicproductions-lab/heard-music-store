@@ -95,7 +95,7 @@ async function uploadFile(inputId, routeName, hiddenName) {
   const result = await uploadFiles(routeName, {
     files: [input.files[0]]
   });
-
+console.log("UPLOAD RESULT:", routeName, result);
   if (!result || !result[0] || !result[0].ufsurl) {
     throw new Error("Upload failed");
   }
