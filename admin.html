@@ -144,7 +144,7 @@ console.log("SAVE RESPONSE:", data);
 
       alert("Beat saved!");
       e.target.reset();
-      await loadbeats();
+      await loadBeats();
     });
 async function loadBeats() {const res = await fetch("/api/beats?t=" + Date.now(), {
   cache: "no-store"
