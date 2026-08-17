@@ -96,13 +96,15 @@ async function uploadFile(inputId, routeName, hiddenName) {
     files: [input.files[0]]
   });
 console.log("UPLOAD RESULT:", routeName, result);
-  if (!result || !result[0] || !result[0].ufsurl) {
-    throw new Error("Upload failed");
-  }
+if (!result || !result[0] || !result[0].key) {
+  throw new Error("Upload failed");
+}
 
-  document.querySelector(
-    `input[name="${hiddenName}"]`
-  ).value = result[0].ufsurl;
+const fileUrl = `https://utfs.io/f/${result[0].key}`;
+
+document.querySelector(
+  `input[name="${hiddenName}"]`
+).value = fileUrl;
 }
     let editingBeatId = null;
     document.getElementById("beatForm").addEventListener("submit", async function(e) {
