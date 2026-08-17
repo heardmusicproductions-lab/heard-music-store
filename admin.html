@@ -136,7 +136,7 @@ const res = await fetch("/api/beats", {
       });
 
       const data = await res.json();
-
+console.log("SAVE RESPONSE:", data);
       if (!res.ok) {
         alert("Error: " + data.error);
         return;
