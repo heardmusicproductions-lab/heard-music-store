@@ -83,17 +83,21 @@ module.exports = async function handler(req, res) {
         return res.status(400).json({ error: "Missing beat id" });
       }
 
-      await beats.updateOne(
-        { _id: new ObjectId(id) },
-        {
-          $set: {
-            ...updates,
-            updatedAt: new Date(),
-          },
-        }
-      );
+const result = await beats.updateOne(
+  { _id: new ObjectId(id) },
+  {
+    $set: {
+      ...updates,
+      updatedAt: new Date(),
+    },
+  }
+);
 
-      return res.status(200).json({ success: true });
+return res.status(200).json({
+  success: true,
+  matchedCount: result.matchedCount,
+  modifiedCount: result.modifiedCount
+});
     }
 
     if (req.method === "DELETE") {
