@@ -48,7 +48,10 @@
 
 <label>Cover Image</label><br>
 <input type="file" id="imageFile" accept="image/*"><br>
-<div id="imageStatus"></div>   
+<div id="imageStatus"></div>
+<button type="button" onclick="removeExistingFile('image', 'imageStatus', 'imageFile')">
+  Remove
+</button>
 <input type="hidden" name="image"><br>
 
 <label>Preview Audio</label><br>
@@ -193,6 +196,15 @@ async function loadBeats() {const res = await fetch("/api/beats?t=" + Date.now()
     </div>
   `).join("");
 }
+ function removeExistingFile(hiddenName, statusId, fileInputId) {
+  const hiddenInput = document.querySelector(`input[name="${hiddenName}"]`);
+  const status = document.getElementById(statusId);
+  const fileInput = document.getElementById(fileInputId);
+
+  hiddenInput.value = "";
+  fileInput.value = "";
+  status.textContent = "File marked for removal";
+}   
 function editBeat(beat) {
   editingBeatId = beat._id;
 
