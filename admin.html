@@ -182,6 +182,8 @@ setTimeout(() => {
 }, 1500);
       e.target.reset();
       await loadBeats();
+      editingBeatId = null;
+document.querySelector('button[type="submit"]').textContent = "Create Beat";
     });
 async function loadBeats() {const res = await fetch("/api/beats?t=" + Date.now(), {
   cache: "no-store"
