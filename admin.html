@@ -56,22 +56,34 @@
 
 <label>Preview Audio</label><br>
 <input type="file" id="previewFile" accept="audio/*"><br>
-<div id="previewStatus"></div>       
+<div id="previewStatus"></div> 
+ <button type="button" onclick="removeExistingFile('previewUrl', 'previewStatus', 'previewFile')">
+  Remove
+</button>   
 <input type="hidden" name="previewUrl"><br>
 
 <label>MP3 File</label><br>
 <input type="file" id="mp3File" accept=".mp3,audio/mpeg"><br>
-<div id="mp3Status"></div>    
+<div id="mp3Status"></div>  
+<button type="button" onclick="removeExistingFile('mp3Url', 'mp3Status', 'mp3File')">
+  Remove
+</button>   
 <input type="hidden" name="mp3Url"><br>
 
 <label>WAV File</label><br>
 <input type="file" id="wavFile" accept=".wav,audio/wav"><br>
-<div id="wavStatus"></div>    
+<div id="wavStatus"></div>
+<button type="button" onclick="removeExistingFile('wavUrl', 'wavStatus', 'wavFile')">
+  Remove
+</button>    
 <input type="hidden" name="wavUrl"><br>
 
 <label>Trackout ZIP</label><br>
 <input type="file" id="trackoutFile" accept=".zip,application/zip"><br>
-<div id="trackoutStatus"></div>    
+<div id="trackoutStatus"></div> 
+<button type="button" onclick="removeExistingFile('trackoutUrl', 'trackoutStatus', 'trackoutFile')">
+  Remove
+</button>    
 <input type="hidden" name="trackoutUrl"><br>
 
     <textarea name="description" placeholder="Description"></textarea><br><br>
