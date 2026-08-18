@@ -48,22 +48,27 @@
 
 <label>Cover Image</label><br>
 <input type="file" id="imageFile" accept="image/*"><br>
+<div id="imageStatus"></div>   
 <input type="hidden" name="image"><br>
 
 <label>Preview Audio</label><br>
 <input type="file" id="previewFile" accept="audio/*"><br>
+<div id="previewStatus"></div>       
 <input type="hidden" name="previewUrl"><br>
 
 <label>MP3 File</label><br>
 <input type="file" id="mp3File" accept=".mp3,audio/mpeg"><br>
+<div id="mp3Status"></div>    
 <input type="hidden" name="mp3Url"><br>
 
 <label>WAV File</label><br>
 <input type="file" id="wavFile" accept=".wav,audio/wav"><br>
+<div id="wavStatus"></div>    
 <input type="hidden" name="wavUrl"><br>
 
 <label>Trackout ZIP</label><br>
 <input type="file" id="trackoutFile" accept=".zip,application/zip"><br>
+<div id="trackoutStatus"></div>    
 <input type="hidden" name="trackoutUrl"><br>
 
     <textarea name="description" placeholder="Description"></textarea><br><br>
@@ -209,7 +214,20 @@ function editBeat(beat) {
   form.wavUrl.value = beat.wavUrl || "";
   form.trackoutUrl.value = beat.trackoutUrl || "";
   form.description.value = beat.description || "";
+  document.getElementById("imageStatus").textContent =
+  beat.image ? "✓ Existing cover attached" : "No cover attached";
 
+document.getElementById("previewStatus").textContent =
+  beat.previewUrl ? "✓ Existing preview attached" : "No preview attached";
+
+document.getElementById("mp3Status").textContent =
+  beat.mp3Url ? "✓ Existing MP3 attached" : "No MP3 attached";
+
+document.getElementById("wavStatus").textContent =
+  beat.wavUrl ? "✓ Existing WAV attached" : "No WAV attached";
+
+document.getElementById("trackoutStatus").textContent =
+  beat.trackoutUrl ? "✓ Existing Trackout attached" : "No Trackout attached";
   document.querySelector("button[type='submit']").textContent = "Update Beat";
   window.scrollTo(0, 0);
 }
