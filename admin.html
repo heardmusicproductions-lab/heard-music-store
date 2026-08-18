@@ -4,6 +4,21 @@
   <title>Heard Music Admin</title>
 
   <style>
+    #uploadLoader img {
+  animation: uploadPulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes uploadPulse {
+  from {
+    transform: scale(0.92);
+    opacity: 0.55;
+  }
+
+  to {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
  body {
   margin: 0;
   padding: 30px;
@@ -86,7 +101,16 @@ button {
 })();
 </script>
   <h1>Heard Music Admin</h1>
-
+  <div id="uploadLoader" style="display:none; text-align:center; margin:20px 0;">
+  <img
+    src="https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bqEZNoPIsv1eiprkaH0NX7q0WDrQmcKoSLs8x"
+    alt="You Can Say You Heard"
+    style="width:90px; height:auto;"
+  >
+  <div id="uploadStatus" style="margin-top:10px; color:#d4af37; font-weight:bold;">
+    Uploading…
+  </div>
+</div>
   <form id="beatForm">
     <input name="title" placeholder="Beat Title" required><br><br>
     <input name="category" placeholder="Genre / Category" required><br><br>
@@ -181,6 +205,11 @@ document.querySelector(
     let editingBeatId = null;
     document.getElementById("beatForm").addEventListener("submit", async function(e) {
       e.preventDefault();
+      const uploadLoader = document.getElementById("uploadLoader");
+const uploadStatus = document.getElementById("uploadStatus");
+
+uploadLoader.style.display = "block";
+uploadStatus.textContent = "Uploading files…";
 await Promise.all([
   uploadFile("imageFile", "coverImage", "image"),
   uploadFile("previewFile", "beatFile", "previewUrl"),
@@ -188,6 +217,7 @@ await Promise.all([
   uploadFile("wavFile", "beatFile", "wavUrl"),
   uploadFile("trackoutFile", "beatFile", "trackoutUrl")
 ]);
+      uploadStatus.textContent = "Saving beat…";
       const form = new FormData(e.target);
       const beatData = Object.fromEntries(form.entries());
 
@@ -232,6 +262,7 @@ document.body.appendChild(notice);
 setTimeout(() => {
   notice.remove();
 }, 1500);
+      uploadLoader.style.display = "none";
       e.target.reset();
       await loadBeats();
       editingBeatId = null;
