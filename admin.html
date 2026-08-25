@@ -4,6 +4,14 @@
   <title>Heard Music Admin</title>
 
   <style>
+    #uploadLoader {
+  position: sticky;
+  top: 20px;
+  z-index: 10;
+  background: #1b1b1b;
+  padding: 14px;
+  border-radius: 12px;
+}
     #uploadLoader img {
   animation: uploadPulse 1s ease-in-out infinite alternate;
 }
@@ -118,17 +126,7 @@ button {
   }
 })();
 </script>
-  <h1>Heard Music Admin</h1>
-  <div id="uploadLoader" style="display:none; text-align:center; margin:20px 0;">
-  <img
-    src="https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bqEZNoPIsv1eiprkaH0NX7q0WDrQmcKoSLs8x"
-    alt="You Can Say You Heard"
-    style="width:90px; height:auto;"
-  >
-  <div id="uploadStatus" style="margin-top:10px; color:#d4af37; font-weight:bold;">
-    Uploading…
-  </div>
-</div>
+ <h1>Heard Music Admin</h1>
   <form id="beatForm">
     <div class="admin-form-grid">
   <div class="form-column">
@@ -144,6 +142,17 @@ button {
     </div>
 
 <div class="form-column">
+   
+  <div id="uploadLoader" style="display:none; text-align:center; margin:20px 0;">
+  <img
+    src="https://i5ubjntoku.ufs.sh/f/2qI0fpDRZN6bqEZNoPIsv1eiprkaH0NX7q0WDrQmcKoSLs8x"
+    alt="You Can Say You Heard"
+    style="width:90px; height:auto;"
+  >
+  <div id="uploadStatus" style="margin-top:10px; color:#d4af37; font-weight:bold;">
+    Uploading…
+  </div>
+</div>
 <label>Cover Image</label><br>
 <input type="file" id="imageFile" accept="image/*"><br>
 <div id="imageStatus"></div>
