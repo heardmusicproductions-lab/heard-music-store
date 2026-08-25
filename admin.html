@@ -33,7 +33,9 @@ h1, h2 {
 
 #beatForm {
   
-  max-width: 700px;
+  max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box; 
   background: #1b1b1b;
   padding: 24px;
   border-radius: 14px;
@@ -67,6 +69,22 @@ button {
   padding: 10px 16px;
   font-weight: bold;
   cursor: pointer;
+} 
+ .admin-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.form-column {
+  min-width: 0;
+}
+
+@media (max-width: 800px) {
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
 }   
 </style>
 </head>
@@ -112,6 +130,8 @@ button {
   </div>
 </div>
   <form id="beatForm">
+    <div class="admin-form-grid">
+  <div class="form-column">
     <input name="title" placeholder="Beat Title" required><br><br>
     <input name="category" placeholder="Genre / Category" required><br><br>
     <input name="mood" placeholder="Mood"><br><br>
@@ -121,7 +141,9 @@ button {
     <input name="mp3Price" placeholder="MP3 Price" value="45"><br><br>
     <input name="wavPrice" placeholder="WAV Price" value="65"><br><br>
     <input name="trackoutPrice" placeholder="Trackout Price" value="300"><br><br>
+    </div>
 
+<div class="form-column">
 <label>Cover Image</label><br>
 <input type="file" id="imageFile" accept="image/*"><br>
 <div id="imageStatus"></div>
@@ -161,7 +183,8 @@ button {
   Remove
 </button>    
 <input type="hidden" name="trackoutUrl"><br>
-
+</div>
+</div>
     <textarea name="description" placeholder="Description"></textarea><br><br>
 
     <button type="submit">Create Beat</button>
