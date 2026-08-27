@@ -39,9 +39,23 @@ header{
   background-clip:text;
   text-shadow:0 0 14px rgba(47,107,255,0.18);
 }
-.cart-btn{background:linear-gradient(135deg, #d4af37 0%, #f2d675 45%, #2f6bff 100%);color:#000;padding:10px 15px;border-radius:8px;font-weight:bold;cursor:pointer}
+.cart-btn{background:linear-gradient(135deg, #d4af37 0%, #f2d675 45%, #2f6bff 100%);color:#000;padding:10px 15px;border-radius:8px;font-weight:bold;cursor:pointer; box-shadow:  0 0 10px rgba(47,107,255,0.18), inset 0 1px 0 rgba(255,255,255,0.35);}
 .hero{text-align:center;padding:70px 20px}
-.hero h1{font-size:48px;margin:0 0 10px}
+.hero h1{
+  font-size:48px;
+  margin:0 0 10px;
+  background:linear-gradient(
+    180deg,
+    #fff4b0 0%,
+    #f2d675 30%,
+    #d4af37 60%,
+    #8f6b16 100%
+  );
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  text-shadow:0 0 16px rgba(47,107,255,0.18);
+}
 .hero p{color:#bbb}
 .beats{
   display:grid;
