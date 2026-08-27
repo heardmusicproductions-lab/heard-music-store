@@ -625,7 +625,8 @@ const normaliseCategory = value =>
     .trim()
     .replace(/&/g, "and")
     .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+   .replace(/^-|-$/g, "")
+.replace(/^randb$/, "rnb");
 
 const filteredBeats =
   category === "all"
