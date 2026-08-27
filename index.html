@@ -619,10 +619,20 @@ function renderBeats() {
   `).join("");
 }
 function filterBeats(category) {
-  const filteredBeats =
-    category === "all"
-      ? beats
-      : beats.filter(beat => beat.category === category);
+const normaliseCategory = value =>
+  String(value || "")
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+const filteredBeats =
+  category === "all"
+    ? beats
+    : beats.filter(
+        beat => normaliseCategory(beat.category) === normaliseCategory(category)
+      );
 
   const container = document.getElementById("beatsContainer");
 
