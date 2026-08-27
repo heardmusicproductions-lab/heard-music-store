@@ -8,7 +8,7 @@
   <style>
     body {
       margin: 0;
-      background: #0f0f0f;
+      background: #08111f;
       color: white;
       font-family: Arial, sans-serif;
     }
@@ -18,15 +18,25 @@
       justify-content: space-between;
       align-items: center;
       padding: 18px 28px;
-      background: #111;
-      border-bottom: 1px solid #222;
+      background: #0d1728;
+      border-bottom: 1px solid #1f4f8f;
     }
 
-    .brand {
-      color: #d4af37;
-      font-size: 22px;
-      font-weight: bold;
-    }
+    ..brand {
+  font-size: 22px;
+  font-weight: bold;
+  background: linear-gradient(
+    180deg,
+    #fff4b0 0%,
+    #f2d675 30%,
+    #d4af37 60%,
+    #8f6b16 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 14px rgba(47,107,255,0.18);
+}
 
     .back-link {
       color: white;
@@ -47,13 +57,24 @@
     .preview-art {
       width: 100%;
       border-radius: 14px;
-      background: #181818;
+      background: #101b2d;
     }
 
     .preview-info h1 {
-      font-size: 42px;
-      margin: 0 0 15px;
-    }
+  font-size: 42px;
+  margin: 0 0 15px;
+  background: linear-gradient(
+    180deg,
+    #fff4b0 0%,
+    #f2d675 30%,
+    #d4af37 60%,
+    #8f6b16 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 16px rgba(47,107,255,0.18);
+}
 
     .genre {
       color: #d4af37;
@@ -73,17 +94,25 @@
       margin-bottom: 25px;
     }
 
-    .license-btn {
-      width: 100%;
-      padding: 14px;
-      margin: 8px 0;
-      border: none;
-      border-radius: 8px;
-      background: #d4af37;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.license-btn {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(
+    135deg,
+    #d4af37 0%,
+    #f2d675 45%,
+    #2f6bff 100%
+  );
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow:
+    0 0 10px rgba(47,107,255,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+}
 
     @media (max-width: 800px) {
       .preview-wrap {
