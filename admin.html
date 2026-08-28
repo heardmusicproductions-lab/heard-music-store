@@ -4,113 +4,188 @@
   <title>Heard Music Admin</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 30px;
+      background: #08111f;
+      color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    h1, h2 {
+      display: inline-block;
+      background: linear-gradient(
+        180deg,
+        #fff4b0 0%,
+        #f2d675 30%,
+        #d4af37 60%,
+        #8f6b16 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 14px rgba(47,107,255,0.18);
+    }
+
+    #beatForm {
+      max-width: 1200px;
+      width: 100%;
+      box-sizing: border-box;
+      background: #101b2d;
+      padding: 24px;
+      border-radius: 14px;
+      border: 1px solid #2a4f7a;
+      box-shadow: 0 0 18px rgba(47,107,255,0.06);
+    }
+
+    #beatForm input,
+    #beatForm textarea {
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 12px;
+      padding: 12px;
+      border: 1px solid #2a4f7a;
+      border-radius: 8px;
+      background: #08111f;
+      color: #fff;
+      outline: none;
+    }
+
+    #beatForm input:focus,
+    #beatForm textarea:focus {
+      border-color: #2f6bff;
+      box-shadow: 0 0 10px rgba(47,107,255,0.16);
+    }
+
+    #beatForm label {
+      display: block;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #f2d675;
+      text-shadow: 0 0 8px rgba(47,107,255,0.14);
+    }
+
+    button {
+      background: linear-gradient(
+        135deg,
+        #d4af37 0%,
+        #f2d675 45%,
+        #2f6bff 100%
+      );
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow:
+        0 0 10px rgba(47,107,255,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.35);
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 14px rgba(47,107,255,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+
+    .admin-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .form-column {
+      min-width: 0;
+    }
+
     .file-progress {
-  width: 100%;
-  height: 8px;
-  background: #2a2a2a;
-  border-radius: 999px;
-  overflow: hidden;
-  margin: 6px 0 10px;
-}
+      width: 100%;
+      height: 8px;
+      background: #0d1728;
+      border: 1px solid #2a4f7a;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 6px 0 10px;
+    }
 
-.file-progress-bar {
-  width: 0%;
-  height: 100%;
-  background: #d4af37;
-  border-radius: 999px;
-  transition: width 0.25s ease;
-}
+    .file-progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        #d4af37 0%,
+        #f2d675 45%,
+        #2f6bff 100%
+      );
+      border-radius: 999px;
+      transition: width 0.25s ease;
+      box-shadow: 0 0 10px rgba(47,107,255,0.22);
+    }
+
     #uploadLoader {
-  position: sticky;
-  top: 20px;
-  z-index: 10;
-  background: #1b1b1b;
-  padding: 14px;
-  border-radius: 12px;
-}
+      position: sticky;
+      top: 20px;
+      z-index: 10;
+      background: #0d1728;
+      padding: 14px;
+      border: 1px solid #2a4f7a;
+      border-radius: 12px;
+      box-shadow: 0 0 16px rgba(47,107,255,0.08);
+    }
+
     #uploadLoader img {
-  animation: uploadPulse 1s ease-in-out infinite alternate;
-}
+      animation: uploadPulse 1s ease-in-out infinite alternate;
+    }
 
-@keyframes uploadPulse {
-  from {
-    transform: scale(0.92);
-    opacity: 0.55;
-  }
+    #uploadStatus {
+      color: #f2d675 !important;
+      text-shadow: 0 0 8px rgba(47,107,255,0.16);
+    }
 
-  to {
-    transform: scale(1.08);
-    opacity: 1;
-  }
-}
- body {
-  margin: 0;
-  padding: 30px;
-  background: #111;
-  color: #f5f5f5;
-  font-family: Arial, sans-serif;
-}
+    #beatsList > div {
+      background: #101b2d;
+      border-color: #2a4f7a !important;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(47,107,255,0.05);
+    }
 
-h1, h2 {
-  color: #d4af37;
-}
+    hr {
+      border: 0;
+      border-top: 1px solid #1f4f8f;
+      margin: 28px 0;
+    }
 
-#beatForm {
-  
-  max-width: 1200px;
-  width: 100%;
-  box-sizing: border-box; 
-  background: #1b1b1b;
-  padding: 24px;
-  border-radius: 14px;
-  border: 1px solid #333;
-} 
- #beatForm input,
-#beatForm textarea {
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 12px;
-  padding: 12px;
-  border: 1px solid #444;
-  border-radius: 8px;
-  background: #111;
-  color: #fff;
-}
+    @keyframes uploadPulse {
+      from {
+        transform: scale(0.92);
+        opacity: 0.55;
+      }
 
-#beatForm label {
-  display: block;
-  margin-top: 14px;
-  margin-bottom: 6px;
-  font-weight: bold;
-  color: #d4af37;
-}
+      to {
+        transform: scale(1.08);
+        opacity: 1;
+      }
+    }
 
-button {
-  background: #d4af37;
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 16px;
-  font-weight: bold;
-  cursor: pointer;
-} 
- .admin-form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-  align-items: start;
-}
+    @media (max-width: 800px) {
+      body {
+        padding: 18px;
+      }
 
-.form-column {
-  min-width: 0;
-}
-
-@media (max-width: 800px) {
-  .admin-form-grid {
-    grid-template-columns: 1fr;
-  }
-}   
-</style>
+      .admin-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
  <script>
@@ -165,7 +240,7 @@ button {
     alt="You Can Say You Heard"
     style="width:90px; height:auto;"
   >
-  <div id="uploadStatus" style="margin-top:10px; color:#d4af37; font-weight:bold;">
+  <div id="uploadStatus" style="margin-top:10px; color:#f2d675; font-weight:bold;">
     Uploading…
   </div>
 </div>
@@ -339,7 +414,7 @@ notice.style.position = "fixed";
 notice.style.top = "20px";
 notice.style.left = "50%";
 notice.style.transform = "translateX(-50%)";
-notice.style.background = "#d4af37";
+notice.style.background = "linear-gradient(135deg, #d4af37 0%, #f2d675 45%, #2f6bff 100%)";
 notice.style.color = "#000";
 notice.style.padding = "12px 18px";
 notice.style.borderRadius = "8px";
@@ -370,7 +445,7 @@ async function loadBeats() {const res = await fetch("/api/beats?t=" + Date.now()
   }
 
   beatsList.innerHTML = data.beats.map(beat => `
-    <div style="border:1px solid #ccc; padding:12px; margin:10px 0;">
+    <div style="border:1px solid #2a4f7a; background:#101b2d; border-radius:12px; padding:12px; margin:10px 0;">
       <strong>${beat.title || "Untitled Beat"}</strong><br>
       Genre: ${beat.category || "N/A"}<br>
       Mood: ${beat.mood || "N/A"}<br>
@@ -453,7 +528,7 @@ notice.style.position = "fixed";
 notice.style.top = "20px";
 notice.style.left = "50%";
 notice.style.transform = "translateX(-50%)";
-notice.style.background = "#d4af37";
+notice.style.background = "linear-gradient(135deg, #d4af37 0%, #f2d675 45%, #2f6bff 100%)";
 notice.style.color = "#000";
 notice.style.padding = "12px 18px";
 notice.style.borderRadius = "8px";
