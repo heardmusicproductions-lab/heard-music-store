@@ -188,33 +188,160 @@
   </style>
 </head>
 <body>
- <script>
+<div id="adminLoginOverlay" style="
+  position:fixed;
+  inset:0;
+  background:rgba(8,17,31,0.94);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+  padding:20px;
+">
+  <div style="
+    width:100%;
+    max-width:420px;
+    background:#101b2d;
+    border:1px solid #2a4f7a;
+    border-radius:16px;
+    padding:30px;
+    box-shadow:0 0 30px rgba(47,107,255,0.18);
+    text-align:center;
+  ">
+
+    <div style="
+      font-size:24px;
+      font-weight:bold;
+      margin-bottom:8px;
+      background:linear-gradient(
+        180deg,
+        #fff4b0 0%,
+        #f2d675 30%,
+        #d4af37 60%,
+        #8f6b16 100%
+      );
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    ">
+      HEARD MUSIC
+    </div>
+
+    <div style="
+      color:#ccc;
+      margin-bottom:22px;
+      font-size:14px;
+    ">
+      Admin Access
+    </div>
+
+    <input
+      id="adminPasswordInput"
+      type="password"
+      placeholder="Enter admin password"
+      style="
+        width:100%;
+        padding:13px;
+        background:#08111f;
+        color:white;
+        border:1px solid #2a4f7a;
+        border-radius:8px;
+        outline:none;
+        margin-bottom:14px;
+      "
+    >
+
+    <button id="adminLoginButton" style="
+      width:100%;
+      padding:13px;
+      border:none;
+      border-radius:8px;
+      font-weight:bold;
+      cursor:pointer;
+      color:#000;
+      background:linear-gradient(
+        135deg,
+        #d4af37 0%,
+        #f2d675 45%,
+        #2f6bff 100%
+      );
+      box-shadow:
+        0 0 10px rgba(47,107,255,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.35);
+    ">
+      Enter Admin
+    </button>
+
+    <div
+      id="adminLoginError"
+      style="
+        display:none;
+        margin-top:14px;
+        color:#ff7777;
+        font-size:13px;
+      "
+    >
+      Incorrect password
+    </div>
+
+  </div>
+</div>
+
+<script>
 (async () => {
-  const password = prompt("Enter admin password:");
 
-  if (!password) {
-    window.location.href = "/";
-    return;
-  }
+  const overlay = document.getElementById("adminLoginOverlay");
+  const input = document.getElementById("adminPasswordInput");
+  const button = document.getElementById("adminLoginButton");
+  const errorMessage = document.getElementById("adminLoginError");
 
-  try {
-    const response = await fetch("/api/admin-login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ password })
-    });
+  async function login() {
 
-    if (!response.ok) {
-      alert("Access denied");
-      window.location.href = "/";
-      return;
+    const password = input.value.trim();
+
+    if (!password) return;
+
+    button.disabled = true;
+    button.textContent = "Checking...";
+    errorMessage.style.display = "none";
+
+    try {
+      const response = await fetch("/api/admin-login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ password })
+      });
+
+      if (!response.ok) {
+        errorMessage.style.display = "block";
+        input.value = "";
+        input.focus();
+        return;
+      }
+
+      overlay.remove();
+
+    } catch (error) {
+      errorMessage.textContent = "Login error. Please try again.";
+      errorMessage.style.display = "block";
+    } finally {
+      button.disabled = false;
+      button.textContent = "Enter Admin";
     }
-  } catch (error) {
-    alert("Login error");
-    window.location.href = "/";
   }
+
+  button.addEventListener("click", login);
+
+  input.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      login();
+    }
+  });
+
+  input.focus();
+
 })();
 </script>
  <h1>Heard Music Admin</h1>
